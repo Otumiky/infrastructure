@@ -1,25 +1,12 @@
-resource "aws_instance" "web" {
-  ami           = var.ami_id
-  instance_type = var.instance_type
-
-  tags = {
-    Name = "WebServer"
-  }
+variable "ami_id" {
+  description = "AMI ID for the EC2 instance"
 }
 
-resource "aws_s3_bucket" "app_bucket" {
-  bucket        = var.bucket_name
-  acl           = "private"
+variable "instance_type" {
+  description = "Instance type"
+  default     = "t3.micro"
+}
 
-  versioning {
-    enabled = true
-  }
-
-  server_side_encryption_configuration {
-    rule {
-      apply_server_side_encryption_by_default {
-        sse_algorithm = "AES256"
-      }
-    }
-  }
+variable "bucket_name" {
+  description = "Name of the S3 bucket"
 }
